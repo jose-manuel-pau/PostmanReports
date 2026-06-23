@@ -8,6 +8,139 @@
   },
   "item": [
     {
+      "name": "01_Auth",
+      "item": [
+        {
+          "name": "Auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains token\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"token\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"{{auth_password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{rb_url}}/auth",
+              "host": [
+                "{{rb_url}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Auth",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"{{auth_password_1abp}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{rb_url}}/auth",
+                  "host": [
+                    "{{rb_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"token\": \"5c2030fabca10e5\"\n}"
+            },
+            {
+              "name": "Auth Token Missing",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"{{auth_password_1abp}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{rb_url}}/auth",
+                  "host": [
+                    "{{rb_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n    \"token\": \"\"\r\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Get Bookings",
       "item": [
         {
@@ -649,7 +782,9 @@
                   "pm.variables.set(\"firstname\", uuid());",
                   "pm.variables.set(\"lastname\", uuid());"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             },
             {
@@ -682,7 +817,9 @@
                   "    pm.expect(booking.additionalneeds, \"unexpected additionalneeds\").to.eql(pm.variables.get(\"additionalneeds\"));",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -714,7 +851,7 @@
               },
               {
                 "key": "Cookie",
-                "value": "token=abc123"
+                "value": "token={{token}}"
               }
             ],
             "body": {
@@ -757,7 +894,9 @@
                   "});",
                   ""
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             },
             {
@@ -776,7 +915,9 @@
                   "  });",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -808,7 +949,7 @@
               },
               {
                 "key": "Cookie",
-                "value": "token=abc123"
+                "value": "token={{token}}"
               }
             ],
             "body": {
@@ -851,7 +992,9 @@
                   "});",
                   ""
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             },
             {
@@ -870,7 +1013,9 @@
                   "  });",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -902,7 +1047,7 @@
               },
               {
                 "key": "Cookie",
-                "value": "token=abc123"
+                "value": "token={{token}}"
               }
             ],
             "body": {
@@ -954,7 +1099,9 @@
                   "pm.variables.set(\"firstname\", uuid());",
                   "pm.variables.set(\"lastname\", uuid());"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             },
             {
@@ -974,7 +1121,9 @@
                   "});",
                   ""
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -1006,7 +1155,7 @@
               },
               {
                 "key": "Cookie",
-                "value": "token=abc123"
+                "value": "token={{token}}"
               }
             ],
             "body": {
@@ -1048,7 +1197,9 @@
                   "    pm.variables.set(\"booking_id\", res.json().bookingid)",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             },
             {
@@ -1067,7 +1218,9 @@
                   "  });",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -1099,7 +1252,7 @@
               },
               {
                 "key": "Cookie",
-                "value": "token=abc123"
+                "value": "token={{token}}"
               }
             ],
             "body": {
@@ -1158,134 +1311,6 @@
       "response": []
     },
     {
-      "name": "Auth",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "",
-              "pm.test(\"Response contains token\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData).to.have.property(\"token\");",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"{{auth_password}}\"\n}"
-        },
-        "url": {
-          "raw": "{{rb_url}}/auth",
-          "host": [
-            "{{rb_url}}"
-          ],
-          "path": [
-            "auth"
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Auth",
-          "originalRequest": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"{{auth_password_1abp}}\"\n}"
-            },
-            "url": {
-              "raw": "{{rb_url}}/auth",
-              "host": [
-                "{{rb_url}}"
-              ],
-              "path": [
-                "auth"
-              ]
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "_postman_previewlanguage": "json",
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json",
-              "description": "",
-              "type": "text"
-            }
-          ],
-          "cookie": [
-            {
-              "expires": "Invalid Date",
-              "domain": "",
-              "path": ""
-            }
-          ],
-          "body": "{\n    \"token\": \"5c2030fabca10e5\"\n}"
-        },
-        {
-          "name": "Auth Token Missing",
-          "originalRequest": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"{{auth_password_1abp}}\"\n}"
-            },
-            "url": {
-              "raw": "{{rb_url}}/auth",
-              "host": [
-                "{{rb_url}}"
-              ],
-              "path": [
-                "auth"
-              ]
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "_postman_previewlanguage": "",
-          "header": [],
-          "cookie": [
-            {
-              "expires": "Invalid Date",
-              "domain": "",
-              "path": ""
-            }
-          ],
-          "body": "{\r\n    \"token\": \"\"\r\n}"
-        }
-      ]
-    },
-    {
       "name": "Delete Booking",
       "event": [
         {
@@ -1307,7 +1332,9 @@
               "    pm.variables.set(\"booking_id\", res.json().bookingid)",
               "});"
             ],
-            "type": "text/javascript"
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
           }
         },
         {
@@ -1327,7 +1354,9 @@
               "  });",
               "});"
             ],
-            "type": "text/javascript"
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
           }
         }
       ],
@@ -1355,7 +1384,7 @@
           },
           {
             "key": "Cookie",
-            "value": "token=abc123"
+            "value": "token={{token}}"
           }
         ],
         "url": {
@@ -1377,6 +1406,7 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
+        "requests": {},
         "exec": [
           "// top names of 1996",
           "var firstNames = [\"Emily\",\"Michael\", \"Jessica\",\"Matthew\", \"Ashley\",",
@@ -1422,7 +1452,42 @@
           "    },",
           "    \"additionalneeds\" : pm.variables.get(\"additionalneeds\")",
           "}",
-          "pm.variables.set(\"new_booking\", booking)"
+          "pm.variables.set(\"new_booking\", booking)",
+          "",
+          "// Este script se ejecuta automáticamente ANTES de cada petición de la colección",
+          "const authUrl = 'https://restful-booker.herokuapp.com/auth';",
+          "",
+          "// Opcional: Puedes usar variables o dejarlo en texto plano si quieres asegurar",
+          "const username = \"admin\";",
+          "const password = \"password123\"; ",
+          "",
+          "pm.sendRequest({",
+          "    url: authUrl,",
+          "    method: 'POST',",
+          "    header: {",
+          "        'Content-Type': 'application/json'",
+          "    },",
+          "    body: {",
+          "        mode: 'raw',",
+          "        raw: JSON.stringify({",
+          "            username: username,",
+          "            password: password",
+          "        })",
+          "    }",
+          "}, function (err, res) {",
+          "    if (err) {",
+          "        console.error(\"Error en la autenticación global: \", err);",
+          "    } else {",
+          "        const responseJson = res.json();",
+          "        if (responseJson && responseJson.token) {",
+          "            // Guardamos el token en las variables del entorno actual",
+          "            pm.environment.set(\"token\", responseJson.token);",
+          "            console.log(\"Token actualizado correctamente: \" + responseJson.token);",
+          "        } else {",
+          "            console.warn(\"No se pudo obtener el token. Respuesta: \", responseJson);",
+          "        }",
+          "    }",
+          "});"
         ]
       }
     },
@@ -1430,6 +1495,7 @@
       "listen": "test",
       "script": {
         "type": "text/javascript",
+        "requests": {},
         "exec": [
           ""
         ]
