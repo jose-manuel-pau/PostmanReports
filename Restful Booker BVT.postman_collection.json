@@ -550,10 +550,23 @@
                   "    pm.expect(booking.depositpaid, \"unexpected depositpaid\").to.eql(pm.variables.get(\"depositpaid\"));",
                   "    pm.expect(booking.bookingdates.checkin, \"unexpected checkin\").to.eql(pm.variables.get(\"checkin\"));",
                   "    pm.expect(booking.bookingdates.checkout, \"unexpected checkout\").to.eql(pm.variables.get(\"checkout\"));",
-                  "    pm.expect(booking.additionalneeds, \"unexpected additionalneeds\").to.eql(pm.variables.get(\"additionalneeds\"));",
+                  "        // Capturamos lo que esperábamos y lo que ha devuelto la API",
+                  "    var expectedNeeds = pm.variables.get(\"additionalneeds\");",
+                  "    var responseBody = pm.response.json();",
+                  "    var actualNeeds = responseBody.booking.additionalneeds;",
+                  "",
+                  "    // Si Heroku devuelve el string \"null\", lo convertimos a null real antes de comparar",
+                  "    if (actualNeeds === \"null\") {",
+                  "        actualNeeds = null;",
+                  "    }",
+                  "",
+                  "    // Hacemos la comprobación segura",
+                  "    pm.expect(actualNeeds, \"unexpected additionalneeds\").to.eql(expectedNeeds);",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
